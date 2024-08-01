@@ -24,21 +24,35 @@ describe("When Form is created", () => {
       await screen.findByText("Message envoyé !");
     });
   });
-
 });
 
-
 describe("When a page is created", () => {
-  it("a list of events is displayed", () => {
-    // to implement
-  })
-  it("a list a people is displayed", () => {
-    // to implement
-  })
-  it("a footer is displayed", () => {
-    // to implement
-  })
-  it("an event card, with the last event, is displayed", () => {
-    // to implement
-  })
+  it("a list of events is displayed", async () => {
+    render(<Home />);
+    const eventsSection = screen.getByRole("heading", {
+      name: /nos réalisations/i,
+    });
+    expect(eventsSection).toBeInTheDocument();
+  });
+
+  it("a list of people is displayed", async () => {
+    render(<Home />);
+    await screen.findByText("Samira");
+    await screen.findByText("Jean-baptiste");
+    await screen.findByText("Alice");
+    await screen.findByText("Luís");
+    await screen.findByText("Christine");
+    await screen.findByText("Isabelle");
+  });
+
+  it("a footer is displayed", async () => {
+    render(<Home />);
+    expect(screen.getByText("Notre derniére prestation")).toBeInTheDocument();
+    expect(screen.getByText("Contactez-nous")).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        /Une agence événementielle propose des prestations de service spécialisées/i
+      )
+    ).toBeInTheDocument();
+  });
 });
